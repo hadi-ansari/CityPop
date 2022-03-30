@@ -1,15 +1,14 @@
 import { StyleSheet, Text, SafeAreaView, TextInput, View, Button} from 'react-native'
 import React from 'react'
 
-export default function SearchByCityScreen() {
-
+export default function SearchByCountryScreen( {navigation} ) {
     const searchBtnhandler = () => {
         console.log("searching...");
     }
-
+    
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.header}>SEARCH BY CITY</Text>
+            <Text style={styles.header}>SEARCH BY COUNTRY</Text>
 
             <TextInput
                 style={styles.input}
@@ -18,7 +17,7 @@ export default function SearchByCityScreen() {
             <View style={styles.buttonContainer}>
                     <Button
                     onPress={searchBtnhandler}
-                    title="SEARCH BY CITY"
+                    title="SEARCH BY COUNTRY"
                     color="#6119e6"/>
             </View>
 

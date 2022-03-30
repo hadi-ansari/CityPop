@@ -10,6 +10,7 @@ export default function StartScreen( {navigation} ) {
 
     const countryBtnClickHandler = () => {
     console.log("Country button clicked!");
+    navigation.navigate('searchByCountry');
     }
 
     return (
