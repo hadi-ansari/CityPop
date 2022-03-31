@@ -3,7 +3,8 @@ import React from 'react'
 
 export default function SearchByCountryScreen( {navigation} ) {
     const searchBtnhandler = () => {
-        console.log("searching...");
+        console.log("searching by country...");
+        navigation.navigate("countryResultScreen")
     }
     
     return (

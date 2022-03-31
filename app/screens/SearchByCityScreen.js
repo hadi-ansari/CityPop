@@ -1,10 +1,11 @@
 import { StyleSheet, Text, SafeAreaView, TextInput, View, Button} from 'react-native'
 import React from 'react'
 
-export default function SearchByCityScreen() {
+export default function SearchByCityScreen( {navigation} ) {
 
     const searchBtnhandler = () => {
-        console.log("searching...");
+        console.log("searching by city...");
+        navigation.navigate("cityResultScreen");
     }
 
     return (
