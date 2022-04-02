@@ -13,13 +13,8 @@ export default function SearchByCityScreen( {navigation} ) {
             return
         }
 
-        // GET request using fetch
-        const url = 'http://api.geonames.org/search?name_equals=' + searchQuery + '&type=json&username=weknowit'
-        console.log(url)
-
-        dataGetter.fetchCity(url).then(result => {
-            console.log("Population: ", result)
-            navigation.navigate("cityResultScreen", {cityName: searchQuery.toUpperCase(), cityPopulation: result})
+        dataGetter.fetchCityPopulation(searchQuery).then(cityPopulation => {
+            navigation.navigate("cityResultScreen", {cityName: searchQuery.toUpperCase(), cityPopulation})
         }).catch(()=>{
             console.log("No result")
         })

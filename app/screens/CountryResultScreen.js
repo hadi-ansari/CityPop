@@ -3,13 +3,12 @@ import React from 'react'
 import dataGetter from '../utils/dataGetter'
 
 export default function CountryResultScreen({ navigation, route }) {
-  cityClickHandler = (name) => {
-    console.log(name, "clicked")
-    const url = 'http://api.geonames.org/search?name_equals=' + name + '&type=json&username=weknowit'
+  cityClickHandler = (cityName) => {
+    console.log(cityName, "clicked")
+    
 
-    dataGetter.fetchCity(url).then(result => {
-      console.log("Population: ", result)
-      navigation.navigate("cityResultScreen", { cityName: name.toUpperCase(), cityPopulation: result })
+    dataGetter.fetchCityPopulation(cityName).then(cityPopulation => {
+      navigation.navigate("cityResultScreen", { cityName: cityName.toUpperCase(), cityPopulation })
     }).catch(() => {
       console.log("No result")
     })
@@ -19,10 +18,10 @@ export default function CountryResultScreen({ navigation, route }) {
 
   for (let i = 0; i < route.params.mostPopulatedCities.length; i++) {
     cityItems.push(
-      <TouchableOpacity style={styles.cityView} key={i} onPress={() => cityClickHandler(route.params.mostPopulatedCities[i].toponymName)}>
+      <TouchableOpacity style={styles.cityView} key={i} onPress={() => cityClickHandler(route.params.mostPopulatedCities[i].cityName)}>
         <View>
           <Text style={{ fontSize: 25 }}>
-            {route.params.mostPopulatedCities[i].toponymName}
+            {route.params.mostPopulatedCities[i].cityName}
           </Text>
         </View>
       </TouchableOpacity>
