@@ -38,7 +38,7 @@ export default function SearchByCountryScreen( {navigation} ) {
                         if(!data.geonames[index]){
                             break
                         }
-                        else if(data.geonames[index].countryName.toLowerCase().includes(searchQuery)){
+                        else if(data.geonames[index].countryName.toLowerCase() === searchQuery){
                             console.log(data.geonames[index].countryName)
                             mostPopulatedCities.push(data.geonames[index])
                             counter++
@@ -46,7 +46,9 @@ export default function SearchByCountryScreen( {navigation} ) {
                         index++
                     }
                     //console.log(mostPopulatedCities)
-                    navigation.navigate("countryResultScreen", {countryName: searchQuery.toUpperCase(), "mostPopulatedCities": mostPopulatedCities});
+                    if(mostPopulatedCities.length > 0){
+                        navigation.navigate("countryResultScreen", {countryName: searchQuery.toUpperCase(), "mostPopulatedCities": mostPopulatedCities});
+                    }
                     return
                 }
                 console.log("No result!")
