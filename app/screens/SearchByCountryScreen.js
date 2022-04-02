@@ -2,9 +2,48 @@ import { StyleSheet, Text, SafeAreaView, TextInput, View, Button} from 'react-na
 import React from 'react'
 
 export default function SearchByCountryScreen( {navigation} ) {
+    searchQuery = ""
     const searchBtnhandler = () => {
         console.log("searching by country...");
-        navigation.navigate("countryResultScreen")
+        searchQuery = searchQuery.trim().toLowerCase()
+
+        if(searchQuery.length == 0){
+            console.log("The search value can not be empty!")
+            return
+        }
+
+        // GET request using fetch
+        const apiUrl = 'http://api.geonames.org/search?q=' + searchQuery + '&cities=cities15000&orderby=population&type=json&username=weknowit'
+        console.log(apiUrl)
+        fetch(apiUrl, {
+            headers: {
+                'Content-Type': 'application/json'
+            }})
+            .then(response => {
+                if(response.ok){
+                    console.log("It was OK!")
+                    return response.json()
+                }
+            }) 
+            .then(data => {
+                /* Most relevant place seems to be the first element (place) in the list  
+                    therefore we will check if the first element (place) is a country otherwise
+                    we inform user that no place is found
+                */
+                if(data.totalResultsCount !== 0 ){
+                    let mostPopulatedCities = []
+                    for(let i = 0; i < 3; i++){
+                        if(!data.geonames[i]){
+                            break
+                        }
+                        mostPopulatedCities.push(data.geonames[i])
+                    }
+                    //console.log(mostPopulatedCities)
+                    navigation.navigate("countryResultScreen", {countryName: searchQuery.toUpperCase(), "mostPopulatedCities": mostPopulatedCities});
+                    return
+                }
+                console.log("No result!")
+            });
     }
     
     return (
@@ -13,6 +52,10 @@ export default function SearchByCountryScreen( {navigation} ) {
 
             <TextInput
                 style={styles.input}
+                onChangeText={newText => {
+                    console.log("Value is changing...")
+                    searchQuery = newText;
+                }}
             />
 
             <View style={styles.buttonContainer}>
