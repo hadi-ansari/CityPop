@@ -1,19 +1,27 @@
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity} from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native'
 import React from 'react'
+import dataGetter from '../utils/dataGetter'
 
 export default function CountryResultScreen({ navigation, route }) {
   cityClickHandler = (name) => {
-    console.log(name, " clicked")
-  }
+    console.log(name, "clicked")
+    const url = 'http://api.geonames.org/search?name_equals=' + name + '&type=json&username=weknowit'
 
+    dataGetter.fetchCity(url).then(result => {
+      console.log("Population: ", result)
+      navigation.navigate("cityResultScreen", { cityName: name.toUpperCase(), cityPopulation: result })
+    }).catch(() => {
+      console.log("No result")
+    })
+  }
 
   let cityItems = []
 
-  for(let i = 0; i < route.params.mostPopulatedCities.length; i ++){
+  for (let i = 0; i < route.params.mostPopulatedCities.length; i++) {
     cityItems.push(
-      <TouchableOpacity key={i} onPress={cityClickHandler(route.params.mostPopulatedCities[i].toponymName)}>
-        <View style={styles.cityView} >
-          <Text style ={{fontSize: 25}}>
+      <TouchableOpacity style={styles.cityView} key={i} onPress={() => cityClickHandler(route.params.mostPopulatedCities[i].toponymName)}>
+        <View>
+          <Text style={{ fontSize: 25 }}>
             {route.params.mostPopulatedCities[i].toponymName}
           </Text>
         </View>

@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function SearchByCountryScreen( {navigation} ) {
     searchQuery = ""
-    const searchBtnhandler = () => {
+    const searchBtnhandler = async () => {
         console.log("searching by country...");
         searchQuery = searchQuery.trim().toLowerCase()
 
@@ -32,11 +32,18 @@ export default function SearchByCountryScreen( {navigation} ) {
                 */
                 if(data.totalResultsCount !== 0 ){
                     let mostPopulatedCities = []
-                    for(let i = 0; i < 3; i++){
-                        if(!data.geonames[i]){
+                    let counter = 0
+                    let index = 0
+                    while( counter < 3 ){
+                        if(!data.geonames[index]){
                             break
                         }
-                        mostPopulatedCities.push(data.geonames[i])
+                        else if(data.geonames[index].countryName.toLowerCase().includes(searchQuery)){
+                            console.log(data.geonames[index].countryName)
+                            mostPopulatedCities.push(data.geonames[index])
+                            counter++
+                        }
+                        index++
                     }
                     //console.log(mostPopulatedCities)
                     navigation.navigate("countryResultScreen", {countryName: searchQuery.toUpperCase(), "mostPopulatedCities": mostPopulatedCities});

@@ -1,5 +1,6 @@
 import { StyleSheet, Text, SafeAreaView, TextInput, View, Button} from 'react-native'
 import React from 'react'
+import dataGetter from '../utils/dataGetter'
 
 export default function SearchByCityScreen( {navigation} ) {
     let searchQuery = "";
@@ -13,30 +14,15 @@ export default function SearchByCityScreen( {navigation} ) {
         }
 
         // GET request using fetch
-        const apiUrl = 'http://api.geonames.org/search?name_equals=' + searchQuery + '&type=json&username=weknowit'
-        console.log(apiUrl)
-        fetch(apiUrl, {
-            headers: {
-                'Content-Type': 'application/json'
-            }})
-            .then(response => {
-                if(response.ok){
-                    console.log("It was OK!")
-                    return response.json()
-                }
-            }) 
-            .then(data => {
-                /* Most relevant place seems to be the first element (place) in the list  
-                    therefore we will check if the first element (place) is a city otherwise
-                    we inform user that no place is found
-                */
-                if(data.totalResultsCount !== 0 && data.geonames[0].fclName.includes("city")){
-                    //console.log(data.geonames[0])
-                    navigation.navigate("cityResultScreen", {cityName: searchQuery.toUpperCase(), cityPopulation: data.geonames[0].population});
-                    return
-                }
-                console.log("No result!")
-            });
+        const url = 'http://api.geonames.org/search?name_equals=' + searchQuery + '&type=json&username=weknowit'
+        console.log(url)
+
+        dataGetter.fetchCity(url).then(result => {
+            console.log("Population: ", result)
+            navigation.navigate("cityResultScreen", {cityName: searchQuery.toUpperCase(), cityPopulation: result})
+        }).catch(()=>{
+            console.log("No result")
+        })
     }
 
     return (
