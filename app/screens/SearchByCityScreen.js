@@ -1,20 +1,22 @@
-import { StyleSheet, Text, SafeAreaView, TextInput, View, Button} from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, SafeAreaView, TextInput, View, Button } from 'react-native'
+import React , {useState} from 'react'
 import dataGetter from '../utils/dataGetter'
 
 export default function SearchByCityScreen( {navigation} ) {
-    let searchQuery = "";
+
+    const [searchQuery, setSearchQuery] = useState()
     const searchBtnhandler = () => {
         console.log("searching by city...")
-        searchQuery = searchQuery.trim().toLowerCase()
 
-        if(searchQuery.length == 0){
+        const cityName = searchQuery.trim().toLowerCase()
+
+        if(cityName.length == 0){
             console.log("The search value can not be empty!")
             return
         }
 
-        dataGetter.fetchCityPopulation(searchQuery).then(cityPopulation => {
-            navigation.navigate("cityResultScreen", {cityName: searchQuery.toUpperCase(), cityPopulation})
+        dataGetter.fetchCityPopulation(cityName).then(cityPopulation => {
+            navigation.navigate("cityResultScreen", {cityName: cityName.toUpperCase(), cityPopulation})
         }).catch(()=>{
             console.log("No result")
         })
@@ -26,9 +28,9 @@ export default function SearchByCityScreen( {navigation} ) {
 
             <TextInput
                 style={styles.input}
+                value = { searchQuery }
                 onChangeText={newText => {
-                    console.log("Value is changing...")
-                    searchQuery = newText;
+                    setSearchQuery(newText);
                 }}
             />
 
