@@ -2,12 +2,17 @@ import { StyleSheet, View ,Text } from 'react-native'
 import React from 'react'
 
 export default function CityComponent(props) {
+    numberWithSpaces = (number) => {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    }
+
     return (
         <View style = {styles.container}>
             <Text style={styles.header}>{props.cityName}</Text>
             <View style={styles.populationView}>
+                <Text style={{ marginBottom: 15 }}>POPULATION</Text>
                 <Text style={{ fontSize: 25 }}>
-                    {props.cityPopulation}
+                    {numberWithSpaces(props.cityPopulation)}
                 </Text>
             </View>
         </View>
@@ -37,6 +42,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderStyle: 'solid',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'flex-start',
+        padding: 5
     }
 })

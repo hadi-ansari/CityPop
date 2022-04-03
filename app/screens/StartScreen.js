@@ -5,12 +5,10 @@ import * as Progress from 'react-native-progress'
 export default function StartScreen( {navigation} ) {
 
   const cityBtnClickHandler = () => {
-    console.log("User wants to navigate to cityScreen");
     navigation.navigate('searchByCity');
   }
 
   const countryBtnClickHandler = () => {
-    console.log("Country button clicked!");
     navigation.navigate('searchByCountry');
   }
 

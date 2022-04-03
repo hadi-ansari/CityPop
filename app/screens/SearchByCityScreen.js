@@ -10,6 +10,7 @@ export default function SearchByCityScreen({ navigation }) {
     const [progressBarShouldShow, setProgressBarShouldShow] = useState()
 
     const searchBtnhandler = () => {
+        
         setProgressBarShouldShow(true)
         try {
             const cityName = searchQuery.trim().toLowerCase()

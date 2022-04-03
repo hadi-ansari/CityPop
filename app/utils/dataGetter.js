@@ -8,7 +8,6 @@ const dataGetter = {
             }})
             .then(response => {
                 if(response.ok){
-                    console.log("It was OK!")
                     return response.json()
                 }
             }) 
@@ -53,7 +52,6 @@ const dataGetter = {
                 }})
                 .then(response => {
                     if(response.ok){
-                        console.log("It was OK!")
                         return response.json()
                     }
                 }) 
@@ -64,14 +62,23 @@ const dataGetter = {
                         therefore we will validate the first element (place). If it is not valid
                         we inform user that no place is found by rejecting this promise
                     */
-                   console.log(data.geonames[0].name.toLowerCase())
-                   console.log(cityName)
+                    
                    try{
-                        if(data.totalResultsCount !== 0 && data.geonames[0].fclName.includes("city") 
-                        && data.geonames[0].population > 0 && data.geonames[0].name.toLowerCase() === cityName){
-                            resolve(data.geonames[0].population)
-                        }
-                        reject();
+                       if(data.totalResultsCount == 0) { reject() }
+                       let index = 0
+                       while(true){
+                           if(!data.geonames[index]) { 
+                               reject()
+                               break
+                             }
+                           else if( data.geonames[index].fclName.includes("city") 
+                           && data.geonames[index].population > 0 
+                           && (data.geonames[index].toponymName.toLowerCase().includes(cityName) || data.geonames[index].name.toLowerCase().includes(cityName))){
+                            resolve(data.geonames[index].population)
+                               break
+                           }
+                           index++
+                       }
                    }
                    catch(error){
                         reject();
