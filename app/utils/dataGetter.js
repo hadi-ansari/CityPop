@@ -13,17 +13,14 @@ const dataGetter = {
                 }
             }) 
             .then(data => {
-                /*
-                    Most relevant place seems to be the first element (place) in the list  
-                    therefore we will check if the first element (place) is a country otherwise
-                    we inform user that no place is found
-                */
                 if(data.totalResultsCount !== 0 ){
                     let mostPopulatedCities = []
                     let counter = 0
                     let index = 0
                     /*
-                        Trying to find 
+                        Trying to find three most populated cities in this country. We validate 
+                        cities by looking at their county name and comparing that with provided 
+                        country name
                     */
                     while( counter < 3 ){
                         if(!data.geonames[index]){
@@ -62,14 +59,22 @@ const dataGetter = {
                 }) 
                 .then(data => {
 
-                    /* Most relevant place seems to be the first element (place) in the list  
-                        therefore we will check if the first element (place) is a city otherwise
-                        we inform user that no place is found
+                    /* 
+                        Most relevant place seems to be the first element (place) in the list  
+                        therefore we will validate the first element (place). If it is not valid
+                        we inform user that no place is found by rejecting this promise
                     */
-                    if(data.totalResultsCount !== 0 && data.geonames[0].fclName.includes("city") && data.geonames[0].population > 0){
-                        resolve(data.geonames[0].population)
-                    }
-                    reject();
+                   try{
+                        if(data.totalResultsCount !== 0 && data.geonames[0].fclName.includes("city") 
+                        && data.geonames[0].population > 0 && data.geonames[0].toponymName.toLowerCase() === cityName){
+                            resolve(data.geonames[0].population)
+                        }
+                        reject();
+                   }
+                   catch(error){
+                        reject();
+                   }
+                    
                 });            
         });
 
