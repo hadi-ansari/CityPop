@@ -1,7 +1,6 @@
 const dataGetter = {
     fetchMostPopulatedCities: (countryName) => {
         const url = 'http://api.geonames.org/search?q=' + countryName + '&cities=cities15000&orderby=population&type=json&username=weknowit'
-
         return new Promise((resolve, reject) => {
             fetch(url, {
             headers: {
@@ -23,7 +22,6 @@ const dataGetter = {
                     let mostPopulatedCities = []
                     let counter = 0
                     let index = 0
-
                     /*
                         Trying to find 
                     */
@@ -31,7 +29,7 @@ const dataGetter = {
                         if(!data.geonames[index]){
                             break
                         }
-                        else if(data.geonames[index].countryName.toLowerCase() === searchQuery){
+                        else if(data.geonames[index].countryName.toLowerCase() === countryName){
                             mostPopulatedCities.push({"cityName": data.geonames[index].toponymName, "cityPopulation": data.geonames[index].population})
                             counter++
                         }

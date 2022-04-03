@@ -6,7 +6,7 @@ export default function SearchByCountryScreen( {navigation} ) {
     const [searchQuery, setSearchQuery] = useState();
 
     const searchBtnhandler = async () => {
-        
+
         const countryName = searchQuery.trim().toLowerCase()
 
         if( countryName.length == 0){
