@@ -64,9 +64,11 @@ const dataGetter = {
                         therefore we will validate the first element (place). If it is not valid
                         we inform user that no place is found by rejecting this promise
                     */
+                   console.log(data.geonames[0].name.toLowerCase())
+                   console.log(cityName)
                    try{
                         if(data.totalResultsCount !== 0 && data.geonames[0].fclName.includes("city") 
-                        && data.geonames[0].population > 0 && data.geonames[0].toponymName.toLowerCase() === cityName){
+                        && data.geonames[0].population > 0 && data.geonames[0].name.toLowerCase() === cityName){
                             resolve(data.geonames[0].population)
                         }
                         reject();

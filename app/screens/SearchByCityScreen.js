@@ -1,14 +1,16 @@
 import { StyleSheet, Text, SafeAreaView, TextInput, View, Button } from 'react-native'
 import React, { useState } from 'react'
 import dataGetter from '../utils/dataGetter'
+import * as Progress from 'react-native-progress'
 
 export default function SearchByCityScreen({ navigation }) {
 
     const [searchQuery, setSearchQuery] = useState()
     const [errorMessage, setErrorMessage] = useState()
+    const [progressBarShouldShow, setProgressBarShouldShow] = useState()
 
     const searchBtnhandler = () => {
-
+        setProgressBarShouldShow(true)
         try {
             const cityName = searchQuery.trim().toLowerCase()
 
@@ -17,14 +19,16 @@ export default function SearchByCityScreen({ navigation }) {
             }
 
             dataGetter.fetchCityPopulation(cityName).then(cityPopulation => {
-                setErrorMessage(null)
+                setProgressBarShouldShow(false)
                 navigation.navigate("cityResultScreen", { cityName: cityName.toUpperCase(), cityPopulation })
             }).catch(() => {
+                setProgressBarShouldShow(false)
                 setErrorMessage("No result")
             })
 
         }
         catch (e) {
+            setProgressBarShouldShow(false)
             setErrorMessage("No result")
         }
 
@@ -55,6 +59,14 @@ export default function SearchByCityScreen({ navigation }) {
             <View style={styles.errorView}>
                 <Text style={styles.errorText}> {errorMessage} </Text>
             </View>
+
+            {
+                progressBarShouldShow? (
+                    <View>
+                        <Progress.Pie size={100} indeterminate={true} borderWidth={4} progress= {0}/>
+                    </View>)
+                    : null
+            }
 
         </SafeAreaView>
     );

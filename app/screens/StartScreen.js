@@ -17,7 +17,7 @@ export default function StartScreen( {navigation} ) {
   return (
     <SafeAreaView style={styles.container}>
 
-      <Progress.Circle size={100} indeterminate={true} borderWidth={4} progress= {0}/>
+      
       <Text style={styles.header}>CityPop</Text>
 
       <View style={styles.buttonContainer}>
