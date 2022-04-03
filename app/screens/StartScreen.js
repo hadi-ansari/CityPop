@@ -1,37 +1,40 @@
 import { StyleSheet, Text, View, SafeAreaView, Button} from 'react-native'
 import React from 'react'
+import * as Progress from 'react-native-progress'
 
 export default function StartScreen( {navigation} ) {
 
-    const cityBtnClickHandler = () => {
-        console.log("User wants to navigate to cityScreen");
-        navigation.navigate('searchByCity');
-    }
+  const cityBtnClickHandler = () => {
+    console.log("User wants to navigate to cityScreen");
+    navigation.navigate('searchByCity');
+  }
 
-    const countryBtnClickHandler = () => {
+  const countryBtnClickHandler = () => {
     console.log("Country button clicked!");
     navigation.navigate('searchByCountry');
-    }
+  }
 
-    return (
-        <SafeAreaView style={styles.container}>
-            <Text style={styles.header}>CityPop</Text>
+  return (
+    <SafeAreaView style={styles.container}>
 
-            <View style={styles.buttonContainer}>
-                <Button
-                onPress={cityBtnClickHandler}
-                title="SEARCH BY CITY"
-                color="#6119e6"/>
-            </View>
+      <Progress.Circle size={100} indeterminate={true} borderWidth={4} progress= {0}/>
+      <Text style={styles.header}>CityPop</Text>
 
-            <View style={styles.buttonContainer}>
-                <Button
-                onPress={countryBtnClickHandler}
-                title="SEARCH BY COUNTRY"
-                color="#6119e6"/>
-            </View>
-        </SafeAreaView>
-    );
+      <View style={styles.buttonContainer}>
+        <Button
+          onPress={cityBtnClickHandler}
+          title="SEARCH BY CITY"
+          color="#6119e6" />
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <Button
+          onPress={countryBtnClickHandler}
+          title="SEARCH BY COUNTRY"
+          color="#6119e6" />
+      </View>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
