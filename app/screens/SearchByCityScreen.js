@@ -5,8 +5,8 @@ import dataGetter from '../utils/dataGetter'
 export default function SearchByCityScreen( {navigation} ) {
 
     const [searchQuery, setSearchQuery] = useState()
+    
     const searchBtnhandler = () => {
-        console.log("searching by city...")
 
         const cityName = searchQuery.trim().toLowerCase()
 

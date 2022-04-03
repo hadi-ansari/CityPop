@@ -47,7 +47,7 @@ const dataGetter = {
 
     },
     fetchCityPopulation: (cityName) => {
-        const url = 'http://api.geonames.org/search?name_equals=' + cityName + '&type=json&username=weknowit'
+        const url = 'http://api.geonames.org/search?q=' + cityName + '&type=json&username=weknowit'
 
         return new Promise((resolve, reject) => {
             fetch(url, {
@@ -61,11 +61,12 @@ const dataGetter = {
                     }
                 }) 
                 .then(data => {
+
                     /* Most relevant place seems to be the first element (place) in the list  
                         therefore we will check if the first element (place) is a city otherwise
                         we inform user that no place is found
                     */
-                    if(data.totalResultsCount !== 0 && data.geonames[0].fclName.includes("city")){
+                    if(data.totalResultsCount !== 0 && data.geonames[0].fclName.includes("city") && data.geonames[0].population > 0){
                         resolve(data.geonames[0].population)
                     }
                     reject();
