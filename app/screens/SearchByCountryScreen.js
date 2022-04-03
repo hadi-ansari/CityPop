@@ -3,7 +3,8 @@ import React , {useState} from 'react'
 import dataGetter from '../utils/dataGetter'
 
 export default function SearchByCountryScreen( {navigation} ) {
-    const [searchQuery, setSearchQuery] = useState();
+    const [searchQuery, setSearchQuery] = useState()
+    const [errorMessage, setErrorMessage] = useState()
 
     const searchBtnhandler = async () => {
 
@@ -19,30 +20,38 @@ export default function SearchByCountryScreen( {navigation} ) {
                     navigation.navigate("countryResultScreen", {countryName: countryName.toUpperCase(), mostPopulatedCities})
                 }
             }).catch(() => {
-                console.log("No result from API")
+                setErrorMessage("No result")
             })
         }
         catch(e) {
-            console.log("No result")
+            setErrorMessage("No result")
         }
         
     }
     
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.header}>SEARCH BY COUNTRY</Text>
+            <View style={styles.headerView}>
+                <Text style={styles.header}>SEARCH BY COUNTRY</Text>
+            </View>
 
-            <TextInput
-                value={searchQuery}
-                style={styles.input}
-                onChangeText={newText => setSearchQuery(newText) }
-            />
-
-            <View style={styles.buttonContainer}>
-                    <Button
-                    onPress={searchBtnhandler}
-                    title="SEARCH BY COUNTRY"
-                    color="#6119e6"/>
+            <View style={styles.InputView}>
+                <TextInput
+                    value={searchQuery}
+                    style={styles.input}
+                    onChangeText={newText => {
+                        setSearchQuery(newText) 
+                        setErrorMessage(null)
+                    }}
+                />
+                <Button
+                        onPress={searchBtnhandler}
+                        title="SEARCH BY COUNTRY"
+                        color="#6119e6"/>
+            </View>
+            
+            <View style={styles.errorView}>
+                <Text style={styles.errorText}>{errorMessage}</Text>
             </View>
 
         </SafeAreaView>
@@ -54,18 +63,29 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
-        justifyContent: 'center',
-      },
+        justifyContent: 'space-around',
+    },
+    headerView: {
+    },
     header: {
-        marginBottom: 100,
         fontSize: 30,
         fontWeight: 'bold'
-      },
+    },
+    InputView: {
+    },
     input: {
         height: 40,
         width: 250,
-        margin: 12,
+        marginBottom: 20,
         borderWidth: 1,
         padding: 10,
+    },
+    buttonView: {
+        marginBottom: 100,
+    },
+    errorView: {
+    },
+    errorText:{
+        color: 'red'
     }
 })
