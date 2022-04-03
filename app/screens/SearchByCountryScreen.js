@@ -1,21 +1,22 @@
 import { StyleSheet, Text, SafeAreaView, TextInput, View, Button} from 'react-native'
-import React from 'react'
+import React , {useState} from 'react'
 import dataGetter from '../utils/dataGetter'
 
 export default function SearchByCountryScreen( {navigation} ) {
-    searchQuery = ""
+    const [searchQuery, setSearchQuery] = useState();
+
     const searchBtnhandler = async () => {
+        
+        const countryName = searchQuery.trim().toLowerCase()
 
-        searchQuery = searchQuery.trim().toLowerCase()
-
-        if(searchQuery.length == 0){
+        if( countryName.length == 0){
             console.log("The search value can not be empty!")
             return
         }
         
-        dataGetter.fetchMostPopulatedCities(searchQuery).then(mostPopulatedCities => {
+        dataGetter.fetchMostPopulatedCities(countryName).then(mostPopulatedCities => {
             for(let i = 0; i < mostPopulatedCities.length; i++){
-                navigation.navigate("countryResultScreen", {countryName: searchQuery.toUpperCase(), mostPopulatedCities})
+                navigation.navigate("countryResultScreen", {countryName: countryName.toUpperCase(), mostPopulatedCities})
             }
         }).catch(()=>{
             console.log("No result")
@@ -27,11 +28,9 @@ export default function SearchByCountryScreen( {navigation} ) {
             <Text style={styles.header}>SEARCH BY COUNTRY</Text>
 
             <TextInput
+                value={searchQuery}
                 style={styles.input}
-                onChangeText={newText => {
-                    console.log("Value is changing...")
-                    searchQuery = newText;
-                }}
+                onChangeText={newText => setSearchQuery(newText) }
             />
 
             <View style={styles.buttonContainer}>
