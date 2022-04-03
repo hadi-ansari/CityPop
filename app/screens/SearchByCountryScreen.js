@@ -7,20 +7,25 @@ export default function SearchByCountryScreen( {navigation} ) {
 
     const searchBtnhandler = async () => {
 
-        const countryName = searchQuery.trim().toLowerCase()
+        try{
+            const countryName = searchQuery.trim().toLowerCase()
 
-        if( countryName.length == 0){
-            console.log("The search value can not be empty!")
-            return
+            if( countryName.length == 0){
+                throw new Error
+            }
+        
+            dataGetter.fetchMostPopulatedCities(countryName).then(mostPopulatedCities => {
+                for(let i = 0; i < mostPopulatedCities.length; i++){
+                    navigation.navigate("countryResultScreen", {countryName: countryName.toUpperCase(), mostPopulatedCities})
+                }
+            }).catch(() => {
+                console.log("No result from API")
+            })
+        }
+        catch(e) {
+            console.log("No result")
         }
         
-        dataGetter.fetchMostPopulatedCities(countryName).then(mostPopulatedCities => {
-            for(let i = 0; i < mostPopulatedCities.length; i++){
-                navigation.navigate("countryResultScreen", {countryName: countryName.toUpperCase(), mostPopulatedCities})
-            }
-        }).catch(()=>{
-            console.log("No result")
-        })
     }
     
     return (
