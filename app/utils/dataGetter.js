@@ -22,6 +22,7 @@ const dataGetter = {
             }) 
             .then(data => {
                 if(data.totalResultsCount !== 0 ){
+                    
                     let mostPopulatedCities = []
                     let counter = 0
                     let index = 0
@@ -44,8 +45,8 @@ const dataGetter = {
                     if(mostPopulatedCities.length > 0){
                         resolve(mostPopulatedCities)
                     }
-                    reject()
                 }
+                reject()
             })
             .catch(()=> {
                 reject()   // in case server responds with status code other than 200
@@ -76,7 +77,6 @@ const dataGetter = {
                         therefore we will validate the first element (place). If it is not valid
                         we inform user that no place is found by rejecting this promise
                     */
-                    
                    try{
                        if(data.totalResultsCount == 0) { reject() }
                        let index = 0
@@ -84,16 +84,16 @@ const dataGetter = {
                            if(!data.geonames[index]) { 
                                reject()
                                break
-                             }
+                           }
                            else if( data.geonames[index].fclName.includes("city") 
                            && data.geonames[index].population > 0 
                            && (data.geonames[index].toponymName.toLowerCase() === cityName || data.geonames[index].name.toLowerCase() === cityName)){
-                            resolve(data.geonames[index].population)
-                               break
+                                resolve(data.geonames[index].population)
+                                break
                            }
                            index++
                        }
-                   }
+                    }
                    catch(error){
                         reject()
                    }
