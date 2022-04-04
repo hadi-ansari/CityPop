@@ -1,3 +1,9 @@
+/*
+    We can define general function which may be used 
+    in several components. In this way we do not need to 
+    repeat the same code
+*/
+
 const dataGetter = {
     fetchMostPopulatedCities: (countryName) => {
         const url = 'http://api.geonames.org/search?q=' + countryName + '&cities=cities15000&orderby=population&type=json&username=weknowit'
@@ -73,7 +79,7 @@ const dataGetter = {
                              }
                            else if( data.geonames[index].fclName.includes("city") 
                            && data.geonames[index].population > 0 
-                           && (data.geonames[index].toponymName.toLowerCase().includes(cityName) || data.geonames[index].name.toLowerCase().includes(cityName))){
+                           && (data.geonames[index].toponymName.toLowerCase() === cityName || data.geonames[index].name.toLowerCase() === cityName)){
                             resolve(data.geonames[index].population)
                                break
                            }

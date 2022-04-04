@@ -1,9 +1,13 @@
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 
+/*
+  Represents an item in the list of most populated cities. In this way
+  we can syle and develope them independent of other components
+*/
 export default function CityItemComponent( props ) {
-  cityClickHandler = (cityName, cityPopulation) => {
 
+  cityClickHandler = (cityName, cityPopulation) => {
     props.navigation.navigate("cityResultScreen", { cityName: cityName.toUpperCase(), cityPopulation })
    
   }

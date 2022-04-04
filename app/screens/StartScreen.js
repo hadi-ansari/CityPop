@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View, SafeAreaView, Button} from 'react-native'
 import React from 'react'
-import * as Progress from 'react-native-progress'
 
 export default function StartScreen( {navigation} ) {
 
@@ -15,7 +14,6 @@ export default function StartScreen( {navigation} ) {
   return (
     <SafeAreaView style={styles.container}>
 
-      
       <Text style={styles.header}>CityPop</Text>
 
       <View style={styles.buttonContainer}>
@@ -31,6 +29,7 @@ export default function StartScreen( {navigation} ) {
           title="SEARCH BY COUNTRY"
           color="#6119e6" />
       </View>
+
     </SafeAreaView>
   );
 }

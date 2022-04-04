@@ -8,7 +8,8 @@ export default function SearchByCountryScreen( {navigation} ) {
     const [errorMessage, setErrorMessage] = useState()
     const [progressBarShouldShow, setProgressBarShouldShow] = useState()
 
-    const searchBtnhandler = async () => {
+    /* Handles searching. We first validate search query and then send a fetch request to the API.*/
+    const searchBtnhandler = () => {
         setProgressBarShouldShow(true)
         setErrorMessage(null)
 
@@ -26,23 +27,23 @@ export default function SearchByCountryScreen( {navigation} ) {
                 }
             }).catch(() => {
                 setProgressBarShouldShow(false)
-                setErrorMessage("No result")
+                setErrorMessage("No result.")
             })
         }
         catch(e) {
             setProgressBarShouldShow(false)
-            setErrorMessage("No result")
+            setErrorMessage("Input can not be empty.")
         }
         
     }
     
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.headerView}>
+            <View>
                 <Text style={styles.header}>SEARCH BY COUNTRY</Text>
             </View>
 
-            <View style={styles.InputView}>
+            <View>
                 <TextInput
                     value={searchQuery}
                     style={styles.input}
@@ -67,8 +68,6 @@ export default function SearchByCountryScreen( {navigation} ) {
                     </View>)
                     : null
             }
-            
-
         </SafeAreaView>
     );
 }
@@ -80,13 +79,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-around',
     },
-    headerView: {
-    },
     header: {
         fontSize: 30,
         fontWeight: 'bold'
-    },
-    InputView: {
     },
     input: {
         height: 40,
@@ -94,11 +89,6 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         borderWidth: 1,
         padding: 10,
-    },
-    buttonView: {
-        marginBottom: 100,
-    },
-    errorView: {
     },
     errorText:{
         color: 'red'

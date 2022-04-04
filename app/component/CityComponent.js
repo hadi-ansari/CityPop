@@ -1,8 +1,15 @@
 import { StyleSheet, View ,Text } from 'react-native'
 import React from 'react'
 
+/*
+  Represents a city which consists of city name as header and 
+  population of the city 
+*/
 export default function CityComponent(props) {
+
     numberWithSpaces = (number) => {
+        // 123000 as input turn to 123 000
+        // with this regex
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     }
 
@@ -31,10 +38,6 @@ const styles = StyleSheet.create({
         marginBottom: 100,
         fontSize: 30,
         fontWeight: 'bold'
-    },
-    headerView: {
-        borderWidth: 1,
-        borderStyle: 'solid',
     },
     populationView: {
         height: 100,

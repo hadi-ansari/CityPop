@@ -2,10 +2,18 @@ import { StyleSheet, View, Text } from 'react-native'
 import React from 'react'
 import CityItemComponent from './CityItemComponent'
 
+/*
+  Represents a country which consists of country name as header and 
+  a list of most populated cities in form of subcomponent 
+*/
 export default function CountryComponent( props ) {
     return (
         <View style={styles.container}>
             <Text style={styles.header}>{ props.countryName }</Text>
+            
+            {/* 
+                For each city we create a CityItemComponent 
+            */}
             {
                 props.mostPopulatedCities.map((city, key) => {
                     return <CityItemComponent key={key} cityName={city.cityName} cityPopulation={city.cityPopulation} navigation={props.navigation} />

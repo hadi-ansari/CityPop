@@ -9,6 +9,7 @@ export default function SearchByCityScreen({ navigation }) {
     const [errorMessage, setErrorMessage] = useState()
     const [progressBarShouldShow, setProgressBarShouldShow] = useState()
 
+    /* Handles searching. We first validate search query and then send a fetch request to the API.*/
     const searchBtnhandler = () => {
         
         setProgressBarShouldShow(true)
@@ -24,13 +25,13 @@ export default function SearchByCityScreen({ navigation }) {
                 navigation.navigate("cityResultScreen", { cityName: cityName.toUpperCase(), cityPopulation })
             }).catch(() => {
                 setProgressBarShouldShow(false)
-                setErrorMessage("No result")
+                setErrorMessage("No result.")
             })
 
         }
         catch (e) {
             setProgressBarShouldShow(false)
-            setErrorMessage("No result")
+            setErrorMessage("Input can not be empty.")
         }
 
     }

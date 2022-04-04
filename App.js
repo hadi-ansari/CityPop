@@ -16,6 +16,12 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+
+        {/* 
+          Here we create all possible screens in the app that we need
+          so we can navigate to later on
+        */}
+
         <Stack.Screen
           name="start"
           component={StartScreen}
