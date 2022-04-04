@@ -6,7 +6,7 @@ Set up the development environment by making sure that you have installed follow
 1. Expo Go application for your mobile device (if you want to run the project on a physical device otherwise you can run it on IOS simulator or Android emulator)
 
 Then clone the repository and open a terminal in the project folder and:
-1. run __"npm instal"__ to install projects dependencies
+1. run __"npm install"__ to install projects dependencies
 1. run __"npm start"__ to run the React Native project
 1. Scan the generated QR code with Expo go application on your physical device or run it on IOS simulator or Android emulator
 
