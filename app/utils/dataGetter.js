@@ -16,6 +16,9 @@ const dataGetter = {
                 if(response.ok){
                     return response.json()
                 }
+                else{
+                    throw new Error
+                }
             }) 
             .then(data => {
                 if(data.totalResultsCount !== 0 ){
@@ -41,9 +44,11 @@ const dataGetter = {
                     if(mostPopulatedCities.length > 0){
                         resolve(mostPopulatedCities)
                     }
-                    reject();
+                    reject()
                 }
-                reject();
+            })
+            .catch(()=> {
+                reject()   // in case server responds with status code other than 200
             })
         })
 
@@ -59,6 +64,9 @@ const dataGetter = {
                 .then(response => {
                     if(response.ok){
                         return response.json()
+                    }
+                    else {
+                        throw new Error
                     }
                 }) 
                 .then(data => {
@@ -87,11 +95,14 @@ const dataGetter = {
                        }
                    }
                    catch(error){
-                        reject();
+                        reject()
                    }
                     
-                });            
-        });
+                })
+                .catch(()=>{
+                    reject() // in case server responds with status code other than 200
+                })         
+        })
 
         
     }

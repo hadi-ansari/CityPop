@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, SafeAreaView, Button} from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, Button } from 'react-native'
 import React from 'react'
 
 export default function StartScreen( {navigation} ) {
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
       fontWeight: 'bold'
     },
     buttonContainer:{
-      width: "60%",
+      width: '60%',
       margin: 10,
-    },
+    }
   });

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, SafeAreaView, TextInput, View, Button } from 'react-native'
+import { StyleSheet, Text, SafeAreaView, TextInput, View, Image, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import dataGetter from '../utils/dataGetter'
 import * as Progress from 'react-native-progress'
@@ -42,7 +42,7 @@ export default function SearchByCityScreen({ navigation }) {
                 <Text style={styles.header}>SEARCH BY CITY</Text>
             </View>
 
-            <View style={styles.InputView}>
+            <View style={{alignItems: "center"}}>
                 <TextInput
                     style={styles.input}
                     value={searchQuery}
@@ -51,14 +51,16 @@ export default function SearchByCityScreen({ navigation }) {
                         setErrorMessage(null)
                     }}
                 />
-
-                <Button
-                    onPress={searchBtnhandler}
-                    title="SEARCH BY CITY"
-                    color="#6119e6" />
+                <View>
+                    <TouchableOpacity onPress={() => searchBtnhandler()}>
+                        <View style={styles.SearchIconView}>
+                            <Image source={require('../assets/search.png')} style={styles.searchIcon} />
+                        </View>
+                    </TouchableOpacity>
+                </View>
             </View>
             
-            <View style={styles.errorView}>
+            <View>
                 <Text style={styles.errorText}> {errorMessage} </Text>
             </View>
 
@@ -87,8 +89,6 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: 'bold'
     },
-    InputView: {
-    },
     input: {
         height: 40,
         width: 250,
@@ -96,12 +96,16 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 10,
     },
-    buttonView: {
-        marginBottom: 100,
-    },
-    errorView: {
-    },
     errorText:{
         color: 'red'
+    },
+    searchIcon: {
+      width: 30,
+      height: 30
+    },
+    SearchIconView: {
+      borderRadius: 30,
+      backgroundColor: "#6119e6",
+      padding: 10
     }
 })
